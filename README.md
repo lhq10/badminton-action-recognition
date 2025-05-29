@@ -4,6 +4,7 @@ Dự án này sử dụng mô hình học sâu để nhận diện các hành đ
 
 ## Cấu trúc Thư mục
 
+```text
 project_root/
 ├── data/ # Thư mục chứa dữ liệu
 │ ├── filter_dataset/ # Đặt dataset video gốc tại đây
@@ -25,7 +26,7 @@ project_root/
 ├── best_model.pth # Model được huấn luyện tốt nhất sẽ lưu ở đây
 ├── training_plots.png # Biểu đồ accuracy/loss trong quá trình huấn luyện
 └── confusion_matrix.png # Ma trận nhầm lẫn trên tập kiểm tra
-
+```
 
 ### Yêu cầu Hệ thống
 Python 3.8+
@@ -42,20 +43,27 @@ TQDM
 ### Cài đặt
 Clone repository:
 
+```bash
 git clone https://github.com/lhq10/badminton-action-recognition.git
 cd badminton-action-recognition
+```
 
 ### Tạo và kích hoạt môi trường ảo (khuyến nghị):
+```bash
 python -m venv venv
+```
 #### Trên Windows
+```bash
 venv\Scripts\activate
+```
 #### Trên macOS/Linux
+```bash
 source venv/bin/activate
-
+```
 ### Cài đặt các thư viện cần thiết:
-
+```bash
 pip install -r requirements.txt
-
+```
 Nếu bạn muốn sử dụng GPU cho ONNXRuntime, hãy đảm bảo bạn đã cài đặt CUDA và cuDNN tương thích, sau đó cài đặt onnxruntime-gpu.
 
 ### Chuẩn bị dữ liệu:
@@ -66,9 +74,9 @@ Bên trong filter_dataset, tạo các thư mục con đặt tên theo từng l�
 
 Sao chép các tệp video huấn luyện của bạn vào các thư mục lớp tương ứng.
 
-Kiểm tra và chỉnh sửa config.py (Nếu cần):
+Kiểm tra và chỉnh sửa ```bash config.py ``` (Nếu cần):
 
-Mở tệp config.py.
+Mở tệp ```bash config.py ```
 
 Đảm bảo các biến đường dẫn như VIDEO_INPUT_DIR_FE, FRAME_OUTPUT_DIR_FE, KEYPOINT_INPUT_DIR_DP, VIDEO_PREDICT_INPUT_DIR_PRED được thiết lập chính xác nếu bạn thay đổi cấu trúc thư mục mặc định.
 
@@ -81,36 +89,36 @@ Thiết lập DEVICE ('cuda' hoặc 'cpu') và RTMLIB_BACKEND.
 Chạy các script sau từ thư mục gốc của dự án (project_root) theo thứ tự:
 
 #### Trích xuất Frame từ Video:
-
+```bash
 python frame_extractor.py
-
+```
 Thao tác này sẽ đọc video từ data/filter_dataset, trích xuất các frame và lưu chúng vào data/frames_test (hoặc đường dẫn bạn cấu hình trong config.py).
 
 #### Trích xuất Keypoints từ Frame:
 
 Trước khi chạy, đảm bảo rtmlib_utils.py có thể khởi tạo mô hình wholebody_model thành công. Nếu có lỗi, kiểm tra cài đặt ONNXRuntime và CUDA (nếu dùng GPU).
-
+```bash
 python keypoint_extractor.py
-
+```
 Script này sẽ đọc các frame từ data/frames_test, sử dụng RTMLib để trích xuất keypoints, và lưu kết quả dưới dạng tệp JSON vào data/keypoints_test.
 
 #### Xử lý Dữ liệu Keypoints:
-
+```bash
 python data_processor.py
-
+```
 Script này sẽ đọc các tệp JSON keypoints, xử lý chúng thành các chuỗi đặc trưng (bao gồm chuẩn hóa và vector chuyển động), thực hiện padding, mã hóa nhãn, và chia thành các tập huấn luyện/kiểm tra. Dữ liệu đã xử lý sẽ được lưu vào data/processed_data/.
 
 #### Huấn luyện Model:
-
+```bash
 python train.py
-
+```
 Script này sẽ tải dữ liệu đã xử lý, khởi tạo mô hình BiLSTM + Attention, và bắt đầu quá trình huấn luyện. Model tốt nhất (dựa trên validation accuracy) sẽ được lưu vào best_model.pth. Biểu đồ accuracy/loss và ma trận nhầm lẫn cũng sẽ được tạo.
 
 #### Dự đoán trên một Video Ngẫu nhiên (Tùy chọn):
 Sau khi đã huấn luyện và có tệp best_model.pth:
-
+```bash
 python predict.py
-
+```
 Script này sẽ chọn một video ngẫu nhiên từ data/filter_dataset, trích xuất frame và keypoints cho video đó, xử lý keypoints, sau đó sử dụng model đã huấn luyện để dự đoán hành động và so sánh với nhãn thực tế.
 
 ### Ghi chú
