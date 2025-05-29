@@ -1,0 +1,31 @@
+# Môi trường ảo
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dữ liệu (Thường thì dữ liệu lớn không nên đẩy lên Git)
+# Nếu thư mục 'data' của bạn nhỏ hoặc bạn muốn chia sẻ một phần nhỏ,
+# hãy cân nhắc kỹ. Đối với dataset lớn, nên dùng Git LFS hoặc lưu trữ riêng.
+# Tạm thời, chúng ta sẽ bỏ qua toàn bộ thư mục data và các file model lớn.
+data/filter_dataset/
+data/frames_test/
+data/keypoints_test/
+data/processed_data/
+best_model.pth
+training_plots.png
+confusion_matrix.png
+
+# File cấu hình IDE/Editor
+.vscode/
+.idea/
+*.DS_Store
+
+# File log
+*.log
+
+# File build
+build/
+dist/
+*.egg-info/

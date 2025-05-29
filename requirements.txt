@@ -1,0 +1,13 @@
+opencv-python
+rtmlib
+onnxruntime
+torch
+torchvision
+torchaudio
+scikit-learn
+tensorflow # Chỉ cần thiết cho to_categorical, có thể thay thế bằng numpy hoặc torch
+numpy
+matplotlib
+tqdm
+# Nếu bạn dùng GPU cho onnxruntime:
+# onnxruntime-gpu
